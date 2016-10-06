@@ -1,10 +1,12 @@
 apply plugin: 'java'
 
 repositories {
-    mavenCentral()
+    jcenter()
 }
 
 dependencies {
-    compile 'org.slf4j:slf4j-api:1.7.21'
+    compile 'org.slf4j:slf4j-api:1.7.21',
+            'org.hibernate:hibernate-entitymanager:4.3.10.Final',
+            'com.h2database:h2:1.4.187'
     testCompile 'junit:junit:4.12'
 }
