@@ -1,6 +1,6 @@
-package seo.dale.commerce;
+package seo.dale.practice.jpa;
 
-import seo.dale.commerce.model.Member;
+import seo.dale.practice.jpa.model.Member;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

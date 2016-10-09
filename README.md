@@ -1,1 +1,1 @@
-# Commerce
+# JPA Practice

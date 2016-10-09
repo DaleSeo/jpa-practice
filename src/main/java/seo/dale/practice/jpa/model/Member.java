@@ -1,4 +1,4 @@
-package seo.dale.commerce.model;
+package seo.dale.practice.jpa.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
