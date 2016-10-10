@@ -6,11 +6,18 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 public class MemberMain {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
+        Connection conn = DriverManager.getConnection("jdbc:h2:mem:test");
+        Statement stmt = conn.createStatement();
+        stmt.executeUpdate("CREATE TABLE member (id VARCHAR(255) NOT NULL, name VARCHAR(255), age INTEGER, PRIMARY KEY (id))");
 
         //엔티티 매니저 팩토리 생성
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("commerce");
@@ -19,7 +26,6 @@ public class MemberMain {
         EntityTransaction tx = em.getTransaction(); //트랜잭션 기능 획득
 
         try {
-
 
             tx.begin(); //트랜잭션 시작
             logic(em);  //비즈니스 로직

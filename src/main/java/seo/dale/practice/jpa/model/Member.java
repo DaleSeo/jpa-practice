@@ -1,5 +1,6 @@
 package seo.dale.practice.jpa.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -8,6 +9,7 @@ public class Member {
 
     @Id
     private String id;
+    @Column(name = "name")
     private String username;
     private Integer age;
 
