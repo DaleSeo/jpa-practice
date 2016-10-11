@@ -8,16 +8,16 @@ import javax.persistence.Id;
 public class Member {
 
     @Id
-    private String id;
+    private Long id;
     @Column(name = "name")
     private String username;
     private Integer age;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

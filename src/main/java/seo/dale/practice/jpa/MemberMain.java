@@ -1,6 +1,7 @@
 package seo.dale.practice.jpa;
 
 import seo.dale.practice.jpa.model.Member;
+import seo.dale.practice.jpa.util.TableCreator;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,9 +16,7 @@ import java.util.List;
 public class MemberMain {
 
     public static void main(String[] args) throws SQLException {
-        Connection conn = DriverManager.getConnection("jdbc:h2:mem:test");
-        Statement stmt = conn.createStatement();
-        stmt.executeUpdate("CREATE TABLE member (id VARCHAR(255) NOT NULL, name VARCHAR(255), age INTEGER, PRIMARY KEY (id))");
+        TableCreator.createTable();
 
         //엔티티 매니저 팩토리 생성
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("commerce");
@@ -43,7 +42,7 @@ public class MemberMain {
 
     public static void logic(EntityManager em) {
 
-        String id = "id1";
+        long id = 1L;
         Member member = new Member();
         member.setId(id);
         member.setUsername("지한");
