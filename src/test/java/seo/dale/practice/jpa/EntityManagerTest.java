@@ -4,10 +4,7 @@ import org.junit.*;
 import seo.dale.practice.jpa.model.Member;
 import seo.dale.practice.jpa.util.TableCreator;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import java.sql.SQLException;
 
 import static org.junit.Assert.*;
@@ -80,9 +77,42 @@ public class EntityManagerTest {
         assertEquals("DaleSeo", em.find(Member.class, 1L).getUsername());
     }
 
+    @Test
+    public void testInsertAndUpdate() {
+        Member member = createMember(1L, "dale0713", 34);
+        em.persist(member);
+        member.setAge(17);
+
+        Member found = em.find(Member.class, 1L);
+        assertEquals(member.getAge(), found.getAge());
+    }
+
+    @Test(expected = EntityExistsException.class)
+    public void testPersistDifferentObjectWithTheSameId() {
+        em.persist(createMember(1L, "dale0713", 34));
+        em.persist(createMember(1L, "kate0308", 28)); // the same id
+        fail();
+    }
+
+    @Test(expected = PersistenceException.class)
+    public void testInsertDuplicate() {
+        Member member = createMember(1L, "dale0713", 34);
+        em.persist(member);
+        em.flush();
+        em.detach(member);
+
+        em.persist(createMember(1L, "DaleSeo", 34)); // primary key violation
+        em.flush();
+        fail();
+    }
+
     @After
     public void tearDown() {
-        tx.commit();
+        if (tx.getRollbackOnly()) {
+            tx.rollback();
+        } else {
+            tx.commit();
+        }
         em.close();
     }
 
