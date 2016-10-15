@@ -1,6 +1,10 @@
 package seo.dale.practice.jpa.model;
 
+import seo.dale.practice.jpa.common.Model;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Member extends Model {
@@ -14,6 +18,9 @@ public class Member extends Model {
     private String city;
     private String street;
     private String zipcode;
+
+    @OneToMany(mappedBy = "member")
+    private List<Order> orders = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -55,4 +62,11 @@ public class Member extends Model {
         this.zipcode = zipcode;
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
 }

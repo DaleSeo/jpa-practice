@@ -1,5 +1,7 @@
 package seo.dale.practice.jpa.model;
 
+import seo.dale.practice.jpa.common.Model;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +15,7 @@ public class Item extends Model {
     private Long id;
 
     private String name;
-    private int prcie;
+    private int price;
     private int stockQuantity;
 
     public Long getId() {
@@ -32,12 +34,12 @@ public class Item extends Model {
         this.name = name;
     }
 
-    public int getPrcie() {
-        return prcie;
+    public int getPrice() {
+        return price;
     }
 
-    public void setPrcie(int prcie) {
-        this.prcie = prcie;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public int getStockQuantity() {

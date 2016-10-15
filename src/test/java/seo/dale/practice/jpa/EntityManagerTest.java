@@ -18,7 +18,7 @@ public class EntityManagerTest {
     @BeforeClass
     public static void setUpClass() throws SQLException {
         TableCreator.createTable();
-        emf = Persistence.createEntityManagerFactory("commerce");
+        emf = Persistence.createEntityManagerFactory("jpa-practice");
     }
 
     @Before

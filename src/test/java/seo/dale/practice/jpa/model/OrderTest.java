@@ -9,6 +9,8 @@ import javax.persistence.Persistence;
 import java.sql.SQLException;
 import java.util.Date;
 
+import static org.junit.Assert.assertEquals;
+
 public class OrderTest {
 
     private static EntityManagerFactory emf;
@@ -17,7 +19,7 @@ public class OrderTest {
 
     @BeforeClass
     public static void setUpClass() throws SQLException {
-        emf = Persistence.createEntityManagerFactory("commerce");
+        emf = Persistence.createEntityManagerFactory("jpa-practice");
     }
 
     @Before
@@ -41,12 +43,19 @@ public class OrderTest {
 
         Order order = new Order();
         order.setOrderDate(new Date());
-        order.setMemberId(member.getId());
+        order.setMember(member);
         order.setStatus(OrderStatus.ORDER);
 
         em.persist(order);
 
         System.out.println(">>> " + order);
+
+        assertEquals(order.getId(),  member.getOrders().get(0).getId());
+
+        order = em.find(Order.class, order.getId());
+        member = order.getMember();
+
+        assertEquals(member.getId(), order.getMember().getId());
     }
 
     @After
