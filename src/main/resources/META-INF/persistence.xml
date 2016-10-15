@@ -4,6 +4,8 @@
     <persistence-unit name="commerce">
 
         <class>seo.dale.practice.jpa.model.Member</class>
+        <class>seo.dale.practice.jpa.model.Order</class>
+
         <properties>
             <!-- 필수 속성 -->
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
@@ -16,7 +18,7 @@
             <property name="hibernate.use_sql_comments" value="true" />
             <property name="hibernate.id.new_generator_mappings" value="true" />
 
-            <!--<property name="hibernate.hbm2ddl.auto" value="create" />-->
+            <property name="hibernate.hbm2ddl.auto" value="create" />
         </properties>
     </persistence-unit>
 

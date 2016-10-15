@@ -31,7 +31,7 @@ public class EntityManagerTest {
     @Test
     public void testLifeCycle() {
         // New
-        Member member = createMember(1L, "dale0713", 34);
+        Member member = createMember(1L, "dale0713", "Seoul");
         assertFalse(em.contains(member));
 
         // Managed
@@ -45,16 +45,16 @@ public class EntityManagerTest {
 
         // Detached
         em.detach(member);
-        member.setAge(17);
+        member.setCity("Busan");
         em.flush();
         assertFalse(em.contains(member));
-        assertEquals(34, em.find(Member.class, 1L).getAge().intValue());
+        assertEquals("Seoul", em.find(Member.class, 1L).getCity());
 
         // Managed again
         member = em.merge(member);
         em.flush();
         assertTrue(em.contains(member));
-        assertEquals(17, em.find(Member.class, 1L).getAge().intValue());
+        assertEquals("Busan", em.find(Member.class, 1L).getCity());
 
         // Removed
         em.remove(member);
@@ -65,43 +65,43 @@ public class EntityManagerTest {
 
     @Test
     public void tesDirtyChecking() {
-        Member member = createMember(1L, "dale0713", 34);
+        Member member = createMember(1L, "dale0713", "Seoul");
         em.persist(member);
         assertTrue(em.contains(member));
 
         em.flush();
         assertSame(member, em.find(Member.class, 1L));
 
-        member.setUsername("DaleSeo");
+        member.setName("DaleSeo");
         em.flush();
-        assertEquals("DaleSeo", em.find(Member.class, 1L).getUsername());
+        assertEquals("DaleSeo", em.find(Member.class, 1L).getName());
     }
 
     @Test
     public void testInsertAndUpdate() {
-        Member member = createMember(1L, "dale0713", 34);
+        Member member = createMember(1L, "dale0713", "Seoul");
         em.persist(member);
-        member.setAge(17);
+        member.setCity("Busan");
 
         Member found = em.find(Member.class, 1L);
-        assertEquals(member.getAge(), found.getAge());
+        assertEquals(member.getCity(), found.getCity());
     }
 
     @Test(expected = EntityExistsException.class)
     public void testPersistDifferentObjectWithTheSameId() {
-        em.persist(createMember(1L, "dale0713", 34));
-        em.persist(createMember(1L, "kate0308", 28)); // the same id
+        em.persist(createMember(1L, "dale0713", "Seoul"));
+        em.persist(createMember(1L, "kate0308", "Suncheon")); // the same id
         fail();
     }
 
     @Test(expected = PersistenceException.class)
     public void testInsertDuplicate() {
-        Member member = createMember(1L, "dale0713", 34);
+        Member member = createMember(1L, "dale0713", "Seoul");
         em.persist(member);
         em.flush();
         em.detach(member);
 
-        em.persist(createMember(1L, "DaleSeo", 34)); // primary key violation
+        em.persist(createMember(1L, "DaleSeo", "Seoul")); // primary key violation
         em.flush();
         fail();
     }
@@ -121,11 +121,11 @@ public class EntityManagerTest {
         emf.close();
     }
 
-    private static Member createMember(Long id, String username, Integer age) {
+    private static Member createMember(Long id, String username, String city) {
         Member member = new Member();
         member.setId(id);
-        member.setUsername(username);
-        member.setAge(age);
+        member.setName(username);
+        member.setCity(city);
         return member;
     }
 

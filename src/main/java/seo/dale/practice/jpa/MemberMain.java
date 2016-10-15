@@ -42,21 +42,19 @@ public class MemberMain {
 
     public static void logic(EntityManager em) {
 
-        long id = 1L;
         Member member = new Member();
-        member.setId(id);
-        member.setUsername("지한");
-        member.setAge(2);
+        member.setName("Dale");
+        member.setCity("Seoul");
 
         //등록
         em.persist(member);
 
         //수정
-        member.setAge(20);
+        member.setCity("Busan");
 
         //한 건 조회
-        Member findMember = em.find(Member.class, id);
-        System.out.println("findMember=" + findMember.getUsername() + ", age=" + findMember.getAge());
+        Member findMember = em.find(Member.class, 1L);
+        System.out.println("findMember=" + findMember.getName() + ", city=" + findMember.getCity());
 
         //목록 조회
         List<Member> members = em.createQuery("select m from Member m", Member.class).getResultList();
@@ -64,7 +62,6 @@ public class MemberMain {
 
         //삭제
         em.remove(member);
-
     }
 
 }
