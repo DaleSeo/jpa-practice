@@ -45,7 +45,9 @@ public class Order extends Model {
             member.getOrders().remove(this);
         }
         this.member = member;
-        member.getOrders().add(this);
+        if (!member.getOrders().contains(this)) {
+            member.getOrders().add(this);
+        }
     }
 
     public List<OrderItem> getOrderItems() {

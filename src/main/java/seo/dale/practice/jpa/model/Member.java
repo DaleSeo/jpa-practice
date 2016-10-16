@@ -66,7 +66,10 @@ public class Member extends Model {
         return orders;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void addOrders(Order order) {
+        this.orders.add(order);
+        if (order.getMember() != this) {
+            order.setMember(this);
+        }
     }
 }
